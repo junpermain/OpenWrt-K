@@ -1,0 +1,20 @@
+name: Backup Ubuntu 22.04 Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull-and-save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Ubuntu 22.04
+        run: docker pull ubuntu:22.04
+
+      - name: Save to tar
+        run: docker save -o ubuntu-22.04.tar ubuntu:22.04
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-22.04-docker-image
+          path: ubuntu-22.04.tar
